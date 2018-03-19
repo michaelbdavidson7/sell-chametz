@@ -4,7 +4,8 @@
   "description": "Sell your Chametz for Passover via this Alexa Skill!",
   "main": "handler.js",
   "dependencies": {
-    "alexa-sdk": "^1.0.25"
+    "alexa-sdk": "^1.0.25",
+    "https": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {
