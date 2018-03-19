@@ -20,7 +20,7 @@ service: alexa-sell-chametz
 provider:
   name: aws
   runtime: nodejs6.10
-  region: us-east-2
+  region: us-east-1
 
 # you can overwrite defaults here
 #  stage: dev

@@ -1,0 +1,23 @@
+{
+  "name": "alexa-sell-chametz",
+  "version": "1.0.0",
+  "description": "Sell your Chametz for Passover via this Alexa Skill!",
+  "main": "handler.js",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelbdavidson7/sell-chametz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelbdavidson7/sell-chametz/issues"
+  },
+  "homepage": "https://github.com/michaelbdavidson7/sell-chametz#readme"
+}
