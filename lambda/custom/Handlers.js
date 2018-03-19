@@ -45,7 +45,7 @@ const newSessionRequestHandler = function() {
  */
 const launchRequestHandler = function() {
     console.info("Starting launchRequestHandler()");
-    this.emit(":ask", Messages.WELCOME + Messages.WHAT_DO_YOU_WANT, Messages.WHAT_DO_YOU_WANT);
+    this.emit(":ask", Messages.WELCOME + " " + Messages.WHAT_DO_YOU_WANT, Messages.WHAT_DO_YOU_WANT);
     console.info("Ending launchRequestHandler()");
 };
 
@@ -110,6 +110,83 @@ const getAddressHandler = function() {
     });
 };
 
+
+/**
+ * This is the handler for our custom SellChametz intent.
+ * Refer to the Intents.js file for documentation.
+ */
+const sellChametzHandler = function() {
+
+    //TODO: consider just putting this under the 'launchhandler' function
+
+    // 1) confirm address
+    // 2) add additional addresses
+    // 3) timezone confirm
+    // 4) submit chabad form
+    // 5) farewell / TODO: consider donating to chabad
+
+    console.info("Starting sellChametzHandler()");
+
+    const consentToken = this.event.context.System.user.permissions.consentToken;
+
+    // If we have not been provided with a consent token, this means that the user has not
+    // authorized your skill to access this information. In this case, you should prompt them
+    // that you don't have permissions to retrieve their address.
+    if(!consentToken) {
+        this.emit(":tellWithPermissionCard", Messages.NOTIFY_MISSING_PERMISSIONS, PERMISSIONS);
+
+        // Lets terminate early since we can't do anything else.
+        console.log("User did not give us permissions to access their address.");
+        console.info("Ending sellChametzHandler()");
+        return;
+    }
+
+    const deviceId = this.event.context.System.device.deviceId;
+    const apiEndpoint = this.event.context.System.apiEndpoint;
+
+    const alexaDeviceAddressClient = new AlexaDeviceAddressClient(apiEndpoint, deviceId, consentToken);
+    let deviceAddressRequest = alexaDeviceAddressClient.getFullAddress();
+
+    deviceAddressRequest.then((addressResponse) => {
+        switch(addressResponse.statusCode) {
+            case 200:
+                console.log("Address successfully retrieved, now responding to user.");
+                const address = addressResponse.address;
+
+                const ADDRESS_MESSAGE = Messages.ADDRESS_AVAILABLE +
+                    `${address['addressLine1']}, ${address['stateOrRegion']}, ${address['postalCode']}`;
+
+                this.emit(":tell", ADDRESS_MESSAGE);
+                break;
+            case 204:
+                // This likely means that the user didn't have their address set via the companion app.
+                console.log("Successfully requested from the device address API, but no address was returned.");
+                this.emit(":tell", Messages.NO_ADDRESS);
+                break;
+            case 403:
+                console.log("The consent token we had wasn't authorized to access the user's address.");
+                this.emit(":tellWithPermissionCard", Messages.NOTIFY_MISSING_PERMISSIONS, PERMISSIONS);
+                break;
+            default:
+                this.emit(":ask", Messages.LOCATION_FAILURE, Messages.LOCATION_FAILURE);
+        }
+
+        console.info("Ending sellChametzHandler()");
+    });
+
+    deviceAddressRequest.catch((error) => {
+        this.emit(":tell", Messages.ERROR);
+        console.error(error);
+        console.info("Ending sellChametzHandler()");
+    });
+};
+
+function submitChabadForm(){
+    //TODO
+}
+
+
+
 /**
  * This is the handler for the SessionEnded event. Refer to
  * the Events.js file for more documentation.
@@ -170,6 +247,7 @@ handlers[Events.UNHANDLED] = unhandledRequestHandler;
 
 // Add intent handlers
 handlers[Intents.GET_ADDRESS] = getAddressHandler;
+handlers[Intents.SELL_CHAMETZ] = sellChametzHandler;
 handlers[Intents.AMAZON_CANCEL] = amazonCancelHandler;
 handlers[Intents.AMAZON_STOP] = amazonStopHandler;
 handlers[Intents.AMAZON_HELP] = amazonHelpHandler;

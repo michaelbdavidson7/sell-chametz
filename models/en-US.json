@@ -1,0 +1,130 @@
+{
+    "languageModel": {
+        "invocationName": "sell my leavened bread",
+        "intents": [
+            {
+                "name": "AMAZON.CancelIntent",
+                "slots": [],
+                "samples": [
+                    "don't sell",
+                    "do not sell",
+                    "cancel my sale",
+                    "don't sell my chametz"
+                ]
+            },
+            {
+                "name": "AMAZON.HelpIntent",
+                "slots": [],
+                "samples": [
+                    "help",
+                    "what do i do",
+                    "how does this work"
+                ]
+            },
+            {
+                "name": "AMAZON.StopIntent",
+                "slots": [],
+                "samples": [
+                    "don't sell",
+                    "do not sell",
+                    "cancel my sale",
+                    "don't sell my chametz"
+                ]
+            },
+            {
+                "name": "SellChametz",
+                "slots": [
+                    {
+                        "name": "want",
+                        "type": "want"
+                    },
+                    {
+                        "name": "chametz",
+                        "type": "chametz"
+                    }
+                ],
+                "samples": [
+                    "take care of my {chametz}",
+                    "get rid of my {chametz}",
+                    "sell my {chametz}",
+                    "I {want} to sell my {chametz} "
+                ]
+            }
+        ],
+        "types": [
+            {
+                "name": "want",
+                "values": [
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "got",
+                            "synonyms": []
+                        }
+                    },
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "need",
+                            "synonyms": []
+                        }
+                    },
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "have",
+                            "synonyms": []
+                        }
+                    },
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "want",
+                            "synonyms": []
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "chametz",
+                "values": [
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "bread products",
+                            "synonyms": []
+                        }
+                    },
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "bread",
+                            "synonyms": []
+                        }
+                    },
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "leavened bread",
+                            "synonyms": []
+                        }
+                    },
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "hametz",
+                            "synonyms": []
+                        }
+                    },
+                    {
+                        "id": "",
+                        "name": {
+                            "value": "chametz",
+                            "synonyms": []
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

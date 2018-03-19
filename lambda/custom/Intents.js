@@ -16,6 +16,15 @@
  */
 const GET_ADDRESS = "GetAddress";
 
+
+/**
+ * This is a custom intent for our skill. It will indicate
+ * When received, we should retrieve the customer's data from
+ * the Address API.
+ */
+const SELL_CHAMETZ = "SellChametz";
+
+
 /**
  * This is an Amazon built-in intent.
  */
@@ -33,6 +42,7 @@ const AMAZON_STOP = "AMAZON.StopIntent";
 
 module.exports = {
     "GET_ADDRESS": GET_ADDRESS,
+    "SELL_CHAMETZ": SELL_CHAMETZ,
     "AMAZON_HELP": AMAZON_HELP,
     "AMAZON_CANCEL": AMAZON_CANCEL,
     "AMAZON_STOP": AMAZON_STOP
